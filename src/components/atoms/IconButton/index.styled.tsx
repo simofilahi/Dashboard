@@ -1,53 +1,92 @@
 import React from "react";
-import styled from "styled-components";
-import { Size } from ".";
+import styled, { css } from "styled-components";
+import { ColorEnum, Size, SizeEnum } from ".";
 
 interface ContainerProps {
   disabled?: boolean;
   size?: Size;
   style?: React.CSSProperties;
   color?: string;
-  rounded?: boolean;
 }
 
-const paddingPicker = ({ size, theme, style, rounded }: any) => {
-  if (size === "small" && rounded)
-    return `${theme?.spacing["4"]} ${theme?.spacing["4"]}`;
-  else if (size === "small" && !rounded)
-    return `${theme?.spacing["4"]} ${theme?.spacing["12"]}`;
-  else if (size === "medium" && rounded)
-    return `${theme?.spacing["8"]} ${theme?.spacing["8"]}`;
-  else if (size === "medium" && !rounded)
-    return `${theme?.spacing["8"]} ${theme?.spacing["24"]}`;
-  else if (size === "large" && rounded)
+interface PaddingPicker {
+  size?: Size;
+  style?: React.CSSProperties;
+  color?: string;
+  theme?: any;
+}
+
+const paddingPicker = ({ size, theme, style }: PaddingPicker) => {
+  if (size === SizeEnum.Small)
+    return `${theme?.spacing["10"]} ${theme?.spacing["10"]}`;
+  else if (size === SizeEnum.Medium)
+    return `${theme?.spacing["12"]} ${theme?.spacing["12"]}`;
+  else if (size === SizeEnum.Large)
     return `${theme?.spacing["16"]} ${theme?.spacing["16"]}`;
-  else if (size === "large" && !rounded)
-    return `${theme?.spacing["12"]} ${theme?.spacing["48"]}`;
   else if (style?.padding) return style?.padding;
-  else if (rounded) return `${theme?.spacing["4"]} ${theme?.spacing["4"]}`;
-  else `${theme?.spacing["4"]} ${theme?.spacing["12"]}`;
+};
+
+interface WidthHeightPicker {
+  size?: string;
+}
+
+const widthHeightPicker = ({ size }: WidthHeightPicker) => {
+  let style = { width: "16px", height: "16px" };
+
+  if (size === SizeEnum.Small)
+    style = {
+      width: "12px",
+      height: "12px",
+    };
+  else if (size === SizeEnum.Medium) style = { width: "14px", height: "14px" };
+
+  return style;
+};
+
+interface FillPicker {
+  style?: React.CSSProperties;
+  color?: string;
+  theme?: any;
+}
+
+const fillPicker = ({ color, theme, style }: FillPicker) => {
+  if (color === ColorEnum.Primary) return theme?.palette?.grey?.dark;
+  else if (color === ColorEnum.Secondary) return theme?.palette?.purple?.main;
+  else if (color) return color;
+  else if (style?.color) return style.color;
+  else return theme?.palette?.grey?.main;
 };
 
 export const Container = styled.button<ContainerProps>`
   border: unset;
   cursor: pointer;
-  /* background: ${({ style }) => style?.backgroundColor || "red"}; */
-  border-radius: ${({ rounded }) => (rounded && "100%") || "unset"};
-  padding: ${({ size, theme, style, rounded }) =>
-    paddingPicker({ size, theme, style, rounded })};
+  background-color: unset;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   > svg {
+    ${widthHeightPicker}
     > path {
-      fill: ${({ color, theme, style }) =>
-        (color === "primary" && theme?.palette?.white?.main) ||
-        (color === "secondary" && theme?.palette?.purple?.main) ||
-        color ||
-        style?.color ||
-        theme?.palette?.white?.main};
+      fill: ${fillPicker};
     }
   }
-  &:hover,
-  &:active {
-    background-color: ${({ theme }) => theme.palette.grey.light};
-    opacity: ${({ theme }) => theme.opacity["40"]};
-  }
+  padding: ${paddingPicker};
+  ${({ disabled }) =>
+    !disabled
+      ? css`
+          &:hover,
+          &:active {
+            background-color: ${({ theme }) => theme.palette.grey.light};
+            opacity: ${({ theme }) => theme.opacity["100"]};
+          }
+        `
+      : css`
+          > svg {
+            ${widthHeightPicker}
+            > path {
+              fill: ${({ theme }) => theme.palette.grey.main};
+            }
+          }
+        `}
 `;

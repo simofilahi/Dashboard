@@ -22,25 +22,6 @@ const Template: ComponentStory<typeof IconButton> = (args) => (
   </ThemeProvider>
 );
 
-export const Primary = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-  color: "primary",
-  children: <AddIcon />,
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  color: "secondary",
-  children: <AddIcon />,
-};
-
-export const Large = Template.bind({});
-Large.args = {
-  size: "large",
-  children: <AddIcon />,
-};
-
 export const Small = Template.bind({});
 Small.args = {
   size: "small",
@@ -53,23 +34,27 @@ Medium.args = {
   children: <AddIcon />,
 };
 
-export const SmallRounded = Template.bind({});
-SmallRounded.args = {
-  size: "small",
-  children: <AddIcon />,
-  rounded: true,
-};
-
-export const MediumRounded = Template.bind({});
-MediumRounded.args = {
-  size: "medium",
-  children: <AddIcon />,
-  rounded: true,
-};
-
-export const LargeRounded = Template.bind({});
-LargeRounded.args = {
+export const Large = Template.bind({});
+Large.args = {
   size: "large",
   children: <AddIcon />,
-  rounded: true,
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  color: "secondary",
+  children: <AddIcon />,
+};
+
+export const Primary = Template.bind({});
+Primary.args = {
+  color: "primary",
+  children: <AddIcon />,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  color: "secondary",
+  children: <AddIcon />,
+  disabled: true,
 };
