@@ -31,14 +31,14 @@ interface WidthHeightPicker {
 }
 
 const widthHeightPicker = ({ size }: WidthHeightPicker) => {
-  let style = { width: "16px", height: "16px" };
+  let style = { width: "20px", height: "20px" };
 
   if (size === SizeEnum.Small)
     style = {
       width: "12px",
       height: "12px",
     };
-  else if (size === SizeEnum.Medium) style = { width: "14px", height: "14px" };
+  else if (size === SizeEnum.Medium) style = { width: "16px", height: "16px" };
 
   return style;
 };

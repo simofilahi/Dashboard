@@ -54,7 +54,7 @@ Primary.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  color: "secondary",
+  color: "primary",
   children: <AddIcon />,
   disabled: true,
 };
