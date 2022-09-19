@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import { Container } from "./index.styled";
 
 export type Size = "small" | "medium" | "large";
@@ -20,6 +20,7 @@ interface IconButtonProps {
   size?: Size;
   style?: React.CSSProperties;
   color?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const IconButton: React.FC<IconButtonProps> = (props) => {
@@ -29,10 +30,17 @@ const IconButton: React.FC<IconButtonProps> = (props) => {
     size = SizeEnum.Small,
     style,
     color = ColorEnum.Primary,
+    onClick,
   } = props;
 
   return (
-    <Container size={size} disabled={disabled} style={style} color={color}>
+    <Container
+      size={size}
+      disabled={disabled}
+      style={style}
+      color={color}
+      onClick={onClick}
+    >
       {children}
     </Container>
   );
